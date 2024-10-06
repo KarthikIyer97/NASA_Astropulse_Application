@@ -71,12 +71,7 @@ const NeoChart = ({ neoData }) => {
       <h1 className="text-4xl font-bold text-center mb-6">Asteroid Tracker</h1>
 
       {/* Filters */}
-      <div className="flex justify-center mb-4">
-        {/* You can add filter inputs here */}
-        <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-          Apply Filter
-        </button>
-      </div>
+   
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
         {/* Scatter Plot */}
