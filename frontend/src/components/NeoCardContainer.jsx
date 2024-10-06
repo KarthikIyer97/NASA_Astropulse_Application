@@ -1,4 +1,5 @@
 
+
 import React, { useState, useRef } from 'react';
 import NeoCard from './NeoCard';
 
@@ -48,7 +49,6 @@ const NeoCardContainer = ({ neoData }) => {
 
   return (
     <div className="relative flex flex-col items-center">
-    
       {/* Carousel Wrapper */}
       <div
         className="carousel-wrapper flex overflow-x-hidden w-full"
@@ -62,7 +62,7 @@ const NeoCardContainer = ({ neoData }) => {
         {neoData.slice(currentIndex, currentIndex + (window.innerWidth < 768 ? 1 : 3)).map((neo, index) => (
           <div
             key={index}
-            className="flex-shrink-0 w-full sm:w-1/3 p-4 transition-transform duration-500 transform hover:scale-110"
+            className="flex-shrink-0 w-full sm:w-1/3 p-2 sm:p-4 transition-transform duration-500 transform hover:scale-110"
           >
             <NeoCard neo={neo} />
           </div>
@@ -74,7 +74,7 @@ const NeoCardContainer = ({ neoData }) => {
         {/* Left Arrow */}
         <button
           onClick={prevCards}
-          className={`bg-gray-700 text-white px-4 py-2 rounded hover:bg-gray-600 mx-2 ${currentIndex === 0 ? 'opacity-50 cursor-not-allowed' : ''}`} // Disable if first card
+          className={`bg-gray-700 text-white px-3 py-2 sm:px-4 sm:py-2 rounded hover:bg-gray-600 mx-1 sm:mx-2 ${currentIndex === 0 ? 'opacity-50 cursor-not-allowed' : ''}`} // Disable if first card
           disabled={currentIndex === 0}
         >
           &#9664;
@@ -83,7 +83,7 @@ const NeoCardContainer = ({ neoData }) => {
         {/* Right Arrow */}
         <button
           onClick={nextCards}
-          className={`bg-gray-700 text-white px-4 py-2 rounded hover:bg-gray-600 mx-2 ${currentIndex + (window.innerWidth < 768 ? 1 : 3) >= neoData.length ? 'opacity-50 cursor-not-allowed' : ''}`} // Disable if last card
+          className={`bg-gray-700 text-white px-3 py-2 sm:px-4 sm:py-2 rounded hover:bg-gray-600 mx-1 sm:mx-2 ${currentIndex + (window.innerWidth < 768 ? 1 : 3) >= neoData.length ? 'opacity-50 cursor-not-allowed' : ''}`} // Disable if last card
           disabled={currentIndex + (window.innerWidth < 768 ? 1 : 3) >= neoData.length}
         >
           &#9654;
