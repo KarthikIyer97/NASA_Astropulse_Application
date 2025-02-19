@@ -1,154 +1,203 @@
 
 
-// export default AsteroidTracker;
+
 import React, { useEffect, useState } from "react";
-import DatePicker from './DatePicker';
-import NeoList from './NeoList';
-import NeoFilters from './NeoFilters'; // Import NeoFilters
-import Navbar from './Navbar';
-import Footer from './Footer';
-import NeoChart from './NeoChart';
+import { toast, ToastContainer } from "react-toastify"; // ✅ Import Toastify
+import "react-toastify/dist/ReactToastify.css"; // ✅ Import Toastify styles
+import NeoFilters from "./NeoFilters";
+import Navbar from "./Navbar";
+import Footer from "./Footer";
+import NeoChart from "./NeoChart";
+import NeoCard from "./NeoCard";
+import { motion } from "framer-motion";
+
+const backgroundImages = [
+  "/asteroid-image2.jpeg",
+  "/asteroid-image3.jpeg",
+  "/asteroid-image4.jpeg",
+  "/asteroid-image5.jpeg",
+  "/asteroid-image6.jpeg",
+  "/asteroid-image7.jpeg",
+];
 
 const AsteroidTracker = () => {
-  const [neoData, setNeoData] = useState([]); // All NEO data
-  const [loading, setLoading] = useState(false); // Loading state
-  const [error, setError] = useState(''); // Error state
-  const [filteredData, setFilteredData] = useState([]); // Filtered NEO data
-  const [currentImageIndex, setCurrentImageIndex] = useState(0); // Background image index
-  const [isModalOpen, setModalOpen] = useState(false); // Modal visibility
-  const [selectedDate, setSelectedDate] = useState(''); // Selected date for filter
-  const [startDate, setStartDate] = useState(''); // Start date for DatePicker
-  const [endDate, setEndDate] = useState(''); // End date for DatePicker
+  const [neoData, setNeoData] = useState([]);
+  const [filteredData, setFilteredData] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+  const [startDate, setStartDate] = useState("");
+  const [endDate, setEndDate] = useState("");
+  const [closestApproachDate, setClosestApproachDate] = useState("");
+  const [isHazardous, setIsHazardous] = useState(false);
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [isAutoScrolling, setIsAutoScrolling] = useState(true);
+  const [flip, setFlip] = useState(0);
+  const [backgroundIndex, setBackgroundIndex] = useState(0);
 
-  // Array of image URLs for the background
-  const images = [
-    '/background-image1.jpg',
-    '/background-image2.jpg',
-    '/background-image3.jpg',
-    '/background-image4.jpg'
-  ];
+  useEffect(() => {
+    let interval;
+    if (isAutoScrolling && filteredData.length > 0) {
+      interval = setInterval(() => {
+        setCurrentIndex((prevIndex) => (prevIndex + 1) % filteredData.length);
+        setFlip((prevFlip) => prevFlip - 360);
+      }, 3000);
+    }
+    return () => clearInterval(interval);
+  }, [filteredData, isAutoScrolling]);
 
-  // Function to fetch NEO data from the API
-  const fetchNeoData = async (startDate, endDate) => {
+  useEffect(() => {
+    const bgInterval = setInterval(() => {
+      setBackgroundIndex((prevIndex) => (prevIndex + 1) % backgroundImages.length);
+    }, 5000);
+    return () => clearInterval(bgInterval);
+  }, []);
+
+  const fetchNeoData = async (start, end) => {
+    const startDateObj = new Date(start);
+    const endDateObj = new Date(end);
+    const dateDiff = (endDateObj - startDateObj) / (1000 * 60 * 60 * 24); // ✅ Calculate days difference
+
+    // ✅ Check if date difference is greater than 7 days
+    if (dateDiff > 7) {
+      toast.error("Please provide the input of the dates which is in 7 days range 🚀");
+      return; // ✅ Stop API call if the date range is invalid
+    }
+
     setLoading(true);
-    setError('');
-    console.log(`Fetching data for start date: ${startDate} and end date: ${endDate}`);
+    setError("");
+    setFilteredData([]);
+    setNeoData([]);
 
     try {
-      const response = await fetch(`https://nasa-app-backenddd.onrender.com/api/neo?startDate=${startDate}&endDate=${endDate}`);
+      const response = await fetch(
+        `https://nasa-astronomy-backend.onrender.com/api/neo?startDate=${start}&endDate=${end}`
+      );
       if (!response.ok) {
-        throw new Error('Failed to fetch Asteroid Data');
+        throw new Error("Failed to fetch Asteroid Data");
       }
-
       const data = await response.json();
-      console.log('Fetched NEO Data:', data);
-
-      // Collect all NEOs for the selected date range
       const allNeoData = Object.values(data.near_earth_objects).flat();
 
-      // Set the NEO data and filtered data
       setNeoData(allNeoData);
-      setFilteredData(allNeoData); // Set the filtered data initially to all fetched data
-
+      setFilteredData(allNeoData);
+      setStartDate(start);
+      setEndDate(end);
+      setCurrentIndex(0);
     } catch (err) {
-      console.error('Error fetching NEO data:', err);
+      console.error("Error fetching NEO data:", err);
       setError(err.message);
     } finally {
       setLoading(false);
     }
   };
 
-  // Handle filter change based on nearest approach date and hazardous asteroids
-  const handleFilterChange = (nearestApproachDate, isPotentiallyHazardous) => {
-    setSelectedDate(nearestApproachDate); // Set the selected date
+const applyFilters = (newFilters, selectedDate) => {
+  if (!startDate || !endDate) {
+    toast.error("Please select a start and end date before applying filters.");
+    return;
+  }
 
-    const filtered = neoData.filter((neo) => {
-      return neo.close_approach_data.some((approach) => {
-        const approachDate = new Date(approach.close_approach_date).toISOString().split('T')[0];
-        return approachDate >= startDate && approachDate <= endDate &&
-          approachDate === nearestApproachDate &&
-          (isPotentiallyHazardous ? neo.is_potentially_hazardous_asteroid : true);
-      });
-    });
+  // const applyFilters = (newFilters, selectedDate) => {
+    
+    let filtered = neoData;
 
-    setFilteredData(filtered); // Update filtered data
-    setModalOpen(true); // Open modal with the filtered results
+    if (selectedDate) {
+      filtered = filtered.filter((neo) =>
+        neo.close_approach_data.some(
+          (approach) =>
+            new Date(approach.close_approach_date).toISOString().split("T")[0] === selectedDate
+        )
+      );
+    }
+
+    if (newFilters.hazardous) {
+      filtered = filtered.filter((neo) => neo.is_potentially_hazardous_asteroid);
+      setIsHazardous(true);
+    } else {
+      setIsHazardous(false);
+    }
+
+    setFilteredData(filtered);
+    setClosestApproachDate(selectedDate || "");
+    setCurrentIndex(0);
   };
-
-  // Cycle through background images every 3 seconds
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentImageIndex((prevIndex) => (prevIndex + 1) % images.length);
-    }, 3000); // Change image every 3 seconds
-
-    return () => clearInterval(interval); // Cleanup on component unmount
-  }, [images.length]);
 
   return (
     <>
+      {/* ✅ Fixed Navbar */}
       <Navbar />
+
+      {/* ✅ Toast Notification Container */}
+      <ToastContainer position="top-center" autoClose={3000} />
+
       <div
-        className="min-h-screen text-white bg-gray-900"
+        className="min-h-screen text-white flex flex-col items-center pt-24" // ✅ Added pt-24 to push content down
         style={{
-          backgroundImage: `url(${images[currentImageIndex]})`,
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-          transition: 'background-image 1s ease-in-out',
+          backgroundImage: `url(${backgroundImages[backgroundIndex]})`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          transition: "background-image 1s ease-in-out",
         }}
       >
-        <div className="container mx-auto p-4">
-          <h1 className="text-4xl text-white font-bold text-center mb-8">Asteroid Tracker</h1>
+  
 
-          {/* Start Date, End Date, and Filters */}
-          <div className="flex flex-col items-center mb-6">
-            <DatePicker
-              onDateChange={(start, end) => {
-                setStartDate(start);  // Store the selected start date
-                setEndDate(end);      // Store the selected end date
-                fetchNeoData(start, end);  // Fetch NEO data based on the selected date
-              }}
-            />
+<div className="container mx-auto p-4 text-center">
+<h1
+  className="text-3xl sm:text-5xl md:text-6xl font-extrabold uppercase tracking-wide text-purple-900 sm:text-blue-700"
+  style={{
+    textShadow: "1px 1px 0px white, -1px -1px 0px white, 1px -1px 0px white, -1px 1px 0px white",
+    WebkitTextStrokeWidth: "1px",
+    WebkitTextStrokeColor: "white",
+  }}
+>
+  Asteroid Explorer 🚀
+</h1>
 
-            <div className="mt-4 w-full">
-              <NeoFilters
-                onFilterChange={handleFilterChange}
-                startDate={startDate}
-                endDate={endDate}
-              />
-            </div>
-          </div>
 
-          {loading && <p className="text-center">Loading...</p>}
-          {error && <p className="text-red-500 text-center">{error}</p>}
+  <NeoFilters
+    onFilterChange={applyFilters}
+    fetchAsteroids={fetchNeoData}
+    startDate={startDate}
+    endDate={endDate}
+  />
+</div>
 
-          {filteredData.length > 0 ? (
-            <NeoList neoData={filteredData} />
-          ) : (
-            !loading && <p className="text-center">No NEOs found for the selected date range.</p>
-          )}
-        </div>
+
+<div className="w-full flex justify-center items-center overflow-hidden relative">
+  {filteredData.length > 0 && !loading ? (
+    <motion.div
+      className="relative flex space-x-0 sm:space-x-10 cursor-grab"
+      animate={{ x: -currentIndex * 320 }}
+      transition={{ duration: 1, ease: "easeInOut" }}
+      style={{ width: '320px' }} // Ensure the container width matches the card width on smaller screens
+    >
+      {filteredData.map((neo, index) => (
+        <motion.div
+          key={neo.id}
+          className="transition-all duration-1000 ease-in-out transform"
+          animate={{
+            scale: index === currentIndex ? 1.02 : 0.95,
+            rotateY: index === currentIndex ? 0 : flip,
+            opacity: 1,
+            translateX: index < currentIndex ? -50 : index > currentIndex ? 50 : 0,
+            rotateX: index === currentIndex ? 0 : index < currentIndex ? -10 : 10,
+          }}
+          transition={{ duration: 1, ease: "easeInOut" }}
+        >
+          <NeoCard neo={filteredData[index]} index={index} />
+        </motion.div>
+      ))}
+    </motion.div>
+  ) : (
+    <p className="text-gray-400 text-lg mt-4">
+      {loading ? "Fetching data..." : "No asteroids found. Try different filters!"}
+    </p>
+  )}
+</div>
+
       </div>
-
-      {/* Modal for filtered results */}
-      {isModalOpen && (
-        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-70">
-          <div className="bg-gray-800 p-4 rounded-md shadow-lg max-w-md w-full">
-            <h2 className="text-lg font-bold text-white">Approach Date: {selectedDate} - Potentially Hazardous Asteroids</h2>
-            <ul className="overflow-y-auto max-h-60 text-white">
-              {filteredData.map((neo, index) => (
-                <li key={index} className="text-gray-300">
-                  {neo.name}
-                </li>
-              ))}
-            </ul>
-            <button onClick={() => setModalOpen(false)} className="mt-2 bg-blue-500 text-white p-2 rounded">Close</button>
-          </div>
-        </div>
-      )}
-
       <NeoChart neoData={filteredData} />
-
-      <Footer mainText="© 2024 Asteroid Tracker. All Rights Reserved." subText="Built with love for astronomy enthusiasts." />
+      <Footer mainText="🚀 Asteroid Tracker. All Rights Reserved." subText="Built for astronomy enthusiasts." />
     </>
   );
 };

@@ -1,56 +1,55 @@
-This project is a Full stack application that covers 3 parts:
+# Asteroid Tracker Web Application
 
-1. Astronomy Picture of the day using APOD Api in NASA website and it displays the picture of the day with its description and it changes everyday.
+This project is a full-stack web application that covers three main features:
 
-2. Asteroid Tracker using Near-Earth Objects (NEO-Ws) of NASA API. The application allows users to view, filter and visualize data about asteroids approaching in the selected dates. So it gets the data for 7 days from start date to end date.
+1. **Astronomy Picture of the Day (APOD)**: Displays the picture of the day with a description fetched from NASA's APOD API. The picture and description update daily.
+2. **Asteroid Tracker**: Tracks Near-Earth Objects (NEOs) using NASA’s NEO-WS API. It allows users to view, filter, and visualize data about asteroids approaching Earth within a selected date range (up to 7 days).
+3. **Wildfire Tracker**: Uses NASA’s EONET API to display a global map of wildfires, featuring real-time data with the ability to filter events by year.
 
-3. Wildfire Tracker using EONET API of NASA. This tracker is a global map of wildfires. The map features real time data fetched from an APIs and also includes a filter on the basis of years.
+## Table of Contents
+- [Features](#features)
+- [Technologies Used](#technologies-used)
+- [Installation](#installation)
+- [Running the Application](#running-the-application)
+- [Using the Application](#using-the-application)
+- [Available Routes](#available-routes)
+- [Future Improvements](#future-improvements)
+- [Component Breakdown](#component-breakdown)
 
-TABLE OF CONTENTS:-
+---
 
--[Features]
--[Technologies Used]
--[Installation]
--[Running the Application]
--[Using the Application]
--[Available Routes]
--[Future Improvements]
+## Features
 
+1. **Astronomy Picture of the Day (APOD)**: Displays the picture of the day and its description on the home screen using the APOD API.
+2. **NEO Data**: Fetches and displays Near-Earth Objects approaching Earth using the NEO-WS API.
+3. **Asteroid Visualization**: Displays charts (Bar, Pie, Line, and Scatter) showing asteroid size, hazardous status, and maximum diameter.
+4. **Filters**: Allows users to filter NEO data by the nearest approach date and hazardous state.
+5. **Background Image Carousel**: Automatically changes the background image on the homepage.
+6. **Interactive Map**: Displays wildfire events on a world map using Leaflet.js. When the user hovers over the wildfire icons, a dialog box shows the title, location, and full date of the event.
+7. **Responsive Design**: The app is fully responsive, adapting to different screen sizes across devices.
 
+---
 
-Features
+## Technologies Used
 
-1) Astronomy Picture of the day and its Description is displayed on Home screen using APOD Api.
-2) NEO Data: Fetch and display Near-Earth Objects approaching Earth using NEO-Ws API.
-3) Asteroid Visualization: Display charts (Bar, Pie, Line, Scatter) showing details of asteroid size, hazardous and non-hazardous asteroids and max diameter of Asteroids.
-4) Filters:- Filter NEO data by nearest approach date and hazardous state.
-5) Background Image Carousel:- Automatic background image changing on the homepage
-6) Interactive Map:- Display the wildfire events on the world map using leaflet and fire icon. Also if user hovers over the wildfire icon it give a dialog box with the title of wildfire , location and its full date.
-7) Responsive Design:- The app is fully responsive and works across devices with all dimensions.
+- **React**: For building the user interface.
+- **React-Router**: For handling navigation between different pages.
+- **Tailwind CSS**: For styling and designing the user interface.
+- **Chart.js**: For creating charts such as Bar, Line, Pie, and Scatter Plots.
+- **Leaflet.js**: A JavaScript library for interactive maps, used with the `react-leaflet` library.
+- **Node.js** & **Express.js**: For setting up the backend server and handling API requests.
+- **NEO API**: NASA’s Near-Earth Object Web Service API, used for fetching asteroid data.
+- **APOD API**: NASA’s Astronomy Picture of the Day API, used to fetch the daily picture and description.
+- **EONET API**: NASA’s Earth Observatory Natural Event Tracker API, used to fetch wildfire data across the globe.
+- **Axios**: For making HTTP requests to NASA’s APIs.
 
+---
 
-Technologies Used
+## Installation
 
-1) React:- Used for building User Interface.
-2) React-Router:- For handling different routes in the app.
-3) Tailwind CSS:- Used for styling and designing the user interface.
-4) Chart.js:- For creating charts such as Bar, Line, Pie and Scatter Plots.
-5) Leaflet.js:- A Javascript library for interactive maps used in conjunction with 'react-leaflet' library.
-6) Expressjs, Nodejs:- For fetching the API data and displaying it in the frontend
-7) NEO API:- For fetching Near-Earth Object data in Asteroid Tracker.
-8) APOD API:- For fetching the Astronomy Picture of the day and its description
-9) EONET API:- For fetching wildfire across the globe.
-10) Axios:- For making HTTP requests  to NASA's API
+### Prerequisites
 
-
-
-
-
-Installation
-
- Prerequisites
-
-- **Node.js**: Ensure that you have Node.js installed on your machine. You can download it from [nodejs.org](https://nodejs.org/).
+- **Node.js**: Download and install Node.js from [nodejs.org](https://nodejs.org/).
 - **npm**: Node Package Manager, which comes with Node.js.
 
 ### Steps
@@ -58,183 +57,112 @@ Installation
 1. **Clone the repository**:
    ```bash
    git clone https://github.com/your-username/asteroid-tracker.git
-   
+Install frontend and backend dependencies: You will need to install the required packages in both the frontend and backend directories.
 
-2. All the packages and libraries installed are in package.json file which is      included in both frontend and backend.
--- cd frontend
-then,
--- cd backend
+# Asteroid Tracker Web Application
 
- Use command 
- -- npm install 
- in both front and backend for installation of all the libraries
+## Installation
 
-3. Setting Up NASA API Keys
-This project uses NASA’s APIs, so you’ll need to get an API key to access the data.
+### Frontend:
+    cd frontend
+    npm install
+  
+### Backend:
 
-Visit NASA’s API website: https://api.nasa.gov/
-Sign up or log in to get your API Key.
-Once you have the key, create a .env file at the root of your project
+    cd backend
+    npm install
+    
+## Setting Up NASA API Keys
+This project uses NASA’s APIs, so you need to obtain an API key.
 
+Visit NASA API and sign up to get an API key.
+After obtaining your key, create a .env file in the root of the backend directory:
+```bash
+NASA_API_KEY=your-nasa-api-key
+```
+### Running the Application
+To run the application, follow these steps:
 
-Running the Application:-
-For running the application user has to install cors library
+Install CORS (Cross-Origin Resource Sharing)
+The frontend and backend need to communicate, so you’ll need to install CORS in the backend.
 
-the command for installation is as follows
+```bash
+npm install cors
+```
 
-npm i cors
-
-Cors allows the users to run both frontend and backend simultaneously.
-
-So, first the user has to go to frontend and run
-
+### Start the frontend:
+```bash
+cd frontend
 npm run dev
-
-to run the frontend
-
-and then proceed to backend to run using command
-
+```
+### Start the backend:
+```bash
+cd backend
 node server.js
+```
+Now the application should be running on:
 
+Frontend: http://localhost:5173
+Backend: http://localhost:5000
+## Using the Application
+Once the application is running, you can access different features from the navigation bar.
 
---) Using the Application
-Once the application is running, you can access different features from the navigation bar. Here’s how to use each feature:
-
-1) NEO Tracker
+1. NEO Tracker
 Selecting a Date Range: Use the date picker to select a start and end date to fetch Near-Earth Object data for that period.
-Filtering by Hazardous Status: You can filter NEOs that are marked as potentially hazardous by selecting the appropriate checkbox.
-Viewing Data: The data for NEOs will be displayed in the form of cards. You can view charts that show NEO details such as size, hazardous status, and speed.
-Detailed View: You can click on individual NEOs to see more detailed information about their size, closest approach date, and miss distance.
-
-2) Wildfire Map
+Filtering by Hazardous Status: You can filter NEOs that are marked as potentially hazardous by selecting the checkbox.
+Viewing Data: NEO data will be displayed as cards. You can also visualize asteroid size, hazardous status, and speed in charts.
+Detailed View: Click on individual NEOs to see more detailed information like size, closest approach date, and miss distance.
+2. Wildfire Tracker
 Viewing Global Events: Navigate to the Map page to view wildfire events on a global map.
 Event Markers: Hover on wildfire markers to see detailed information about the event, including the date, location, and category.
-
-
-
 Available Routes
-
 The following routes are available in the application:
 
-1) Home Page (/): Displays a Astronomy picture of the day and its description using APOD API.
-2) Asteroid Tracker (/asteroidtracker): Allows users to filter and visualize NEO data, including charts for NEO size, hazardous status, and max diameter.
-3) Map Page (/map): Displays a map of global wildfire events using NASA's EONET API.
+Home Page (/): Displays the Astronomy Picture of the Day and its description using NASA’s APOD API.
+Asteroid Tracker (/asteroidtracker): Allows users to filter and visualize NEO data, including charts for NEO size, hazardous status, and max diameter.
+Map Page (/map): Displays a map of global wildfire events using NASA’s EONET API.
 
-
-
-Future Improvements
-1) Pagination for Large Datasets: If the NEO data is large, implementing pagination or infinite scrolling could improve performance.
+## Future Improvements
+1) Pagination for Large Datasets: If the NEO dataset is large, implementing pagination or infinite scrolling could improve performance.
 2) User Authentication: Allow users to save their preferences or track specific NEOs by adding user authentication.
-3) Making more tabs using another APIs and creating more visualizations.
+3) New APIs and Visualizations: Integrate additional NASA APIs and create more visualizations.
 
-
-Component Breakdown:
-
+## Component Breakdown
 1. App.js
-Purpose: The main entry point for the React application, responsible for routing between different views (Home, AsteroidTracker, Map, etc.).
-Responsibilities:
-Manages route navigation using React Router.
-Provides consistent elements like the Navbar and Footer on all pages.
-Links the key routes /, /asteroidtracker, and /map.
-
+Purpose: Main entry point for the React application, managing route navigation and consistent elements like the Navbar and Footer.
 2. Home.js
-Purpose: Displays the homepage of the app, showcasing the Astronomy Picture of the Day (APOD) and other key information.
-Responsibilities:
-Fetches and displays NASA’s Astronomy Picture of the Day (APOD).
-Implements a background image carousel that cycles through multiple images.
-Provides navigation to the main features of the app, like the asteroid tracker.
-
+Purpose: Displays the Astronomy Picture of the Day (APOD) on the homepage.
+Responsibilities: Fetches the daily picture and description using the APOD API.
 3. AsteroidTracker.js
 Purpose: Main component for tracking Near-Earth Objects (NEOs).
-Responsibilities:
-Fetches NEO data from the NASA API.
-Displays NEOs in a list or carousel format.
-Integrates date filtering and hazardous status filtering.
-Renders charts to visualize NEO data.
-Displays modal dialogs for more detailed NEO information.
-
+Responsibilities: Fetches NEO data, integrates filters, and visualizes asteroid data.
 4. DatePicker.js
-Purpose: Allows users to select a start and end date to filter NEOs by their closest approach date.
-Responsibilities:
-Provides an input form for selecting a date range.
-Validates date range selections (e.g., max range of 7 days).
-Triggers fetchNeoData in the parent component (AsteroidTracker) based on selected dates.
-
+Purpose: Allows users to select a date range for filtering NEO data.
 5. NeoFilters.js
-Purpose: Filter NEOs based on their approach date and hazardous status.
-Responsibilities:
-Provides a checkbox for filtering NEOs marked as “Potentially Hazardous.”
-Triggers the filtering logic in the parent component (AsteroidTracker).
-
+Purpose: Filters NEOs based on their approach date and hazardous status.
 6. NeoCard.js
-Purpose: Displays individual NEO details such as size, closest approach date, and hazardous status.
-Responsibilities:
-Presents NEO data in a clean, readable format.
-Shows key information like diameter, miss distance, and velocity.
-Can be part of a carousel (NeoCardContainer).
-
+Purpose: Displays details of individual NEOs, including size and approach date.
 7. NeoCardContainer.js
-Purpose: A container for multiple NeoCard components, implementing a carousel-like navigation system.
-Responsibilities:
-Displays a carousel of NEOs, allowing users to navigate between cards.
-Supports mouse drag functionality for swiping through cards.
-Handles left/right navigation via arrows for desktop users.
-
+Purpose: A carousel-like container for navigating between NEO cards.
 8. NeoChart.js
-Purpose: Visualizes NEO data using various charts (Bar, Line, Pie, and Scatter plots).
-Responsibilities:
-Renders NEO data (such as size, velocity, hazardous status) in different chart formats using Chart.js.
-Includes Bar charts for hazardous vs non-hazardous NEO counts, Line charts for size over time, and Scatter plots for size vs miss distance.
-Updates dynamically based on filtered data from NeoFilters.
-
+Purpose: Renders charts visualizing NEO data using Chart.js.
 9. NeoDetails.js
-Purpose: Modal for displaying detailed information about a selected NEO.
-Responsibilities:
-Provides a pop-up window with in-depth details about a specific NEO.
-Displays close approach data, including velocity and miss distance.
-Allows users to close the modal to return to the main view.
-
+Purpose: Displays detailed information about a selected NEO in a modal.
 10. NeoList.js
-Purpose: Renders a list of filtered NEOs.
-Responsibilities:
-Displays the NeoCardContainer or a message if no NEOs match the filters.
-Acts as a wrapper for the NeoCardContainer.
-
+Purpose: Renders a list of filtered NEOs using NeoCardContainer.
 11. Map.js
-Purpose: Displays a global map of wildfire events using NASA’s EONET API.
-Responsibilities:
-Uses Leaflet.js to render an interactive map.
-Fetches and displays wildfire events as markers on the map.
-Allows users to click on markers to see more details about the event.
-
+Purpose: Displays wildfire events on an interactive map using Leaflet.js.
 12. Navbar.js
-Purpose: Provides navigation links between the different pages of the application.
-Responsibilities:
-Links to /, /asteroidtracker, and /map routes.
-Remains persistent across different pages for easy navigation.
-
+Purpose: Provides navigation links to different routes in the application.
 13. Footer.js
 Purpose: Displays a footer with information about the app.
-Responsibilities:
-Shows text such as copyright information.
-Can include links to additional resources or contact information.
+Backend Components
+14. server.js
+Purpose: Main entry point for the backend, setting up the Express server and defining API routes for NEO, EONET, and APOD data.
+15. apodRoutes.js, eonetRoutes.js, neoRoutes.js
+Purpose: These route files handle API requests from the frontend and fetch data from NASA’s APIs.
+16. apodController.js, eonetController.js, neoController.js
+Purpose: Controllers for handling the actual logic for interacting with NASA's APIs using Axios.
+17. .env
+Purpose: Stores sensitive data like the NASA API key, keeping it out of the source code
 
-14. server.js:
-
-Main entry point for the backend.
-Sets up the Express server, applies middleware, and defines API routes for NEO, EONET, and APOD data.
-
-15. apodRoutes.js, eonetRoutes.js, neoRoutes.js:
-
-These route files handle API requests from the frontend.
-Each route is responsible for fetching data from its respective NASA API (APOD, EONET, and NEO).
-
-16. apodController.js, eonetController.js, neoController.js:
-
-Controllers contain the logic to interact with NASA's APIs.
-These handle the actual fetching of data from NASA’s services, using Axios, and return the data to the routes.
-
-17. .env:
-
-Stores sensitive data like API keys (e.g., NASA_API_KEY).
-Keeps configuration and secrets safe from the source code.
