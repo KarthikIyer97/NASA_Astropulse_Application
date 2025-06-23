@@ -166,12 +166,14 @@ Once the application is running, you can access different features from the navi
 
 ## 🔮 Future Improvements
 
-- 🔄 **Pagination or Infinite Scroll** for loading large asteroid datasets efficiently.  
-- 🔐 **User Authentication** to save preferences, query history, or favorite asteroids.  
-- 🌍 **More NASA APIs**: Integrate missions like Exoplanets, Meteor Showers, ISS tracking.  
-- 🎨 **Dark Mode** and improved accessibility for better UX.  
-- 📦 **PWA Support** for offline access and installable web experience.  
-- 📈 **Download Options**: Allow exporting chart data as images or CSV.
+- 🤖 **AI-Powered Risk Predictions**: Use ML models to assess asteroid impact probability and classify threat levels in real-time.
+- 🧠 **Enhanced GPT Chatbot**: Enable context-aware conversations powered by live NASA data and predictive analytics.
+- 🔍 **Natural Language Filters**: Let users search with phrases like “asteroids this month near Mars” or “fires in Australia 2021”.
+- 🧑‍🚀 **Gamified Learning Mode**: Add a fun quiz or simulation game based on real asteroid & space data to educate users.
+- ✉️ **Subscription & Alerts**: Let users sign up for weekly space highlights, APODs, or real-time asteroid/wildfire alerts.
+- 🌍 **More NASA APIs**: Integrate APIs like Solar System Dynamics, Space Weather, and Exoplanet Archive.
+- 🌗 **Dark Mode Toggle**: Improve accessibility with a light/dark theme switch.
+
 
 ---
 
@@ -277,49 +279,8 @@ Once the application is running, you can access different features from the navi
 
 ---
 
-📬 **For Questions or Feedback**, visit [`/marsgallery`](https://nasa-astronomy-application.vercel.app/marsgallery) and submit via the contact form.
+📬 **For Questions or Feedback**, visit ["fina page"](https://nasa-astronomy-application.vercel.app/) and submit via the contact form.
 
 👨‍💻 **Developed by [Karthik Iyer](https://github.com/KarthikIyer97)**  
 🌌 **Powered by NASA, Leaflet, OpenAI, EmailJS, and the Universe.**
-
-
-
-## Component Breakdown
-1. App.js
-Purpose: Main entry point for the React application, managing route navigation and consistent elements like the Navbar and Footer.
-2. Home.js
-Purpose: Displays the Astronomy Picture of the Day (APOD) on the homepage.
-Responsibilities: Fetches the daily picture and description using the APOD API.
-3. AsteroidTracker.js
-Purpose: Main component for tracking Near-Earth Objects (NEOs).
-Responsibilities: Fetches NEO data, integrates filters, and visualizes asteroid data.
-4. DatePicker.js
-Purpose: Allows users to select a date range for filtering NEO data.
-5. NeoFilters.js
-Purpose: Filters NEOs based on their approach date and hazardous status.
-6. NeoCard.js
-Purpose: Displays details of individual NEOs, including size and approach date.
-7. NeoCardContainer.js
-Purpose: A carousel-like container for navigating between NEO cards.
-8. NeoChart.js
-Purpose: Renders charts visualizing NEO data using Chart.js.
-9. NeoDetails.js
-Purpose: Displays detailed information about a selected NEO in a modal.
-10. NeoList.js
-Purpose: Renders a list of filtered NEOs using NeoCardContainer.
-11. Map.js
-Purpose: Displays wildfire events on an interactive map using Leaflet.js.
-12. Navbar.js
-Purpose: Provides navigation links to different routes in the application.
-13. Footer.js
-Purpose: Displays a footer with information about the app.
-Backend Components
-14. server.js
-Purpose: Main entry point for the backend, setting up the Express server and defining API routes for NEO, EONET, and APOD data.
-15. apodRoutes.js, eonetRoutes.js, neoRoutes.js
-Purpose: These route files handle API requests from the frontend and fetch data from NASA’s APIs.
-16. apodController.js, eonetController.js, neoController.js
-Purpose: Controllers for handling the actual logic for interacting with NASA's APIs using Axios.
-17. .env
-Purpose: Stores sensitive data like the NASA API key, keeping it out of the source code
 
