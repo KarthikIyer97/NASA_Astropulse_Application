@@ -1,62 +1,69 @@
-# Asteroid Tracker Web Application
+# 🚀 NASA Astropulse Application
 
-This project is a full-stack web application that covers three main features:
+A visually immersive and interactive full-stack web application that integrates multiple NASA APIs to deliver real-time space and Earth data, chatbot interaction, and educational visualizations.
 
-1. **Astronomy Picture of the Day (APOD)**: Displays the picture of the day with a description fetched from NASA's APOD API. The picture and description update daily.
-2. **Asteroid Tracker**: Tracks Near-Earth Objects (NEOs) using NASA’s NEO-WS API. It allows users to view, filter, and visualize data about asteroids approaching Earth within a selected date range (up to 7 days).
-3. **Wildfire Tracker**: Uses NASA’s EONET API to display a global map of wildfires, featuring real-time data with the ability to filter events by year.
-
-## Table of Contents
-- [Features](#features)
-- [Technologies Used](#technologies-used)
-- [Installation](#installation)
-- [Running the Application](#running-the-application)
-- [Using the Application](#using-the-application)
-- [Available Routes](#available-routes)
-- [Future Improvements](#future-improvements)
-- [Component Breakdown](#component-breakdown)
+🌐 [Live Demo](https://nasa-astropulse.vercel.app/) | 📂 [Repository](https://github.com/KarthikIyer97/NASA_Astropulse_Application)
 
 ---
 
-## Features
+## 📋 Table of Contents
 
-1. **Astronomy Picture of the Day (APOD)**: Displays the picture of the day and its description on the home screen using the APOD API.
-2. **NEO Data**: Fetches and displays Near-Earth Objects approaching Earth using the NEO-WS API.
-3. **Asteroid Visualization**: Displays charts (Bar, Pie, Line, and Scatter) showing asteroid size, hazardous status, and maximum diameter.
-4. **Filters**: Allows users to filter NEO data by the nearest approach date and hazardous state.
-5. **Background Image Carousel**: Automatically changes the background image on the homepage.
-6. **Interactive Map**: Displays wildfire events on a world map using Leaflet.js. When the user hovers over the wildfire icons, a dialog box shows the title, location, and full date of the event.
-7. **Responsive Design**: The app is fully responsive, adapting to different screen sizes across devices.
-
----
-
-## Technologies Used
-
-- **React**: For building the user interface.
-- **React-Router**: For handling navigation between different pages.
-- **Tailwind CSS**: For styling and designing the user interface.
-- **Chart.js**: For creating charts such as Bar, Line, Pie, and Scatter Plots.
-- **Leaflet.js**: A JavaScript library for interactive maps, used with the `react-leaflet` library.
-- **Node.js** & **Express.js**: For setting up the backend server and handling API requests.
-- **NEO API**: NASA’s Near-Earth Object Web Service API, used for fetching asteroid data.
-- **APOD API**: NASA’s Astronomy Picture of the Day API, used to fetch the daily picture and description.
-- **EONET API**: NASA’s Earth Observatory Natural Event Tracker API, used to fetch wildfire data across the globe.
-- **Axios**: For making HTTP requests to NASA’s APIs.
+- [✨ Features](#-features)
+- [🛠 Technologies Used](#-technologies-used)
+- [⚙️ Installation](#-installation)
+- [▶️ Running the Application](#-running-the-application)
+- [🧭 Using the Application](#-using-the-application)
+- [🗺️ Available Routes](#-available-routes)
+- [🔮 Future Improvements](#-future-improvements)
+- [📁 Component Breakdown](#-component-breakdown)
 
 ---
 
-## Installation
+## ✨ Features
 
-### Prerequisites
+- 📸 **Astronomy Picture of the Day (APOD)** – Home screen displays NASA’s APOD with description and optional chatbot interaction.
+- ☄️ **Asteroid Tracker (NEO)** – Tracks Near-Earth Objects using NASA’s NEO-WS API. Filter data by date and hazard status.
+- 📊 **Asteroid Data Visualization** – Bar, Pie, Scatter, and Line charts show asteroid size, speed, and potential threat.
+- 🔥 **Wildfire Tracker (EONET)** – Displays a real-time map of wildfire events across the globe using Leaflet with filtering options.
+- 🪐 **Mars Gallery** – Showcases high-resolution Mars rover images. Users can send queries/feedback using an **EmailJS-powered** contact form.
+- 💬 **Chatbot Integration** – Ask astronomy-related questions via OpenAI GPT-powered chatbot on the homepage.
+- 📱 **Responsive Design** – Fully optimized for desktop, tablet, and mobile use.
 
-- **Node.js**: Download and install Node.js from [nodejs.org](https://nodejs.org/).
-- **npm**: Node Package Manager, which comes with Node.js.
+---
+
+## 🛠 Technologies Used
+
+- **🌐 React.js** – Frontend UI library  
+- **🧭 React Router DOM** – Page routing/navigation  
+- **🎨 Tailwind CSS** – Modern utility-based CSS  
+- **📊 Chart.js** – Visualize asteroid data  
+- **🗺️ Leaflet.js + React-Leaflet** – Render wildfire maps  
+- **📦 EmailJS** – Send contact messages from Mars Gallery  
+- **🧠 OpenAI API** – GPT-powered Q&A assistant  
+- **📡 Axios** – API request handling  
+- **☄️ NASA NEO API** – Near-Earth Object feed  
+- **🌌 NASA APOD API** – Astronomy Picture of the Day  
+- **🔥 NASA EONET API** – Natural event (wildfire) data  
+- **🪐 NASA Mars Rover API** – High-res Mars rover photos  
+- **🌍 Node.js** – Backend runtime  
+- **🚀 Express.js** – API server framework  
+- **🔐 dotenv** – Secure key storage  
+- **🔁 CORS Middleware** – Enable API communication
+
+---
+
+## ⚙️ Installation
+
+### 📦 Prerequisites
 
 ### Steps
 
-1. **Clone the repository**:
+- [Node.js](https://nodejs.org/) and npm installed
+
+1. 📥 **Clone the Repository**
+
    ```bash
-   git clone https://github.com/your-username/asteroid-tracker.git
+   git clone https://github.com/KarthikIyer97/NASA_Astropulse_Application.git
 Install frontend and backend dependencies: You will need to install the required packages in both the frontend and backend directories.
 
 # Asteroid Tracker Web Application
@@ -71,6 +78,19 @@ Install frontend and backend dependencies: You will need to install the required
 
     cd backend
     npm install
+    npm install cors
+
+    
+   ## 🔑 Environment Variables
+
+Create a `.env` file in the `backend` root with the following values:
+
+```env
+PORT=port_no
+NASA_API_KEY=your-nasa-api-key
+OPENAI_API_KEY=your-openai-api-key
+
+
     
 ## Setting Up NASA API Keys
 This project uses NASA’s APIs, so you need to obtain an API key.
@@ -98,7 +118,7 @@ npm run dev
 ### Start the backend:
 ```bash
 cd backend
-node server.js
+nodemon server.js
 ```
 Now the application should be running on:
 
@@ -107,25 +127,162 @@ Backend: http://localhost:5000
 ## Using the Application
 Once the application is running, you can access different features from the navigation bar.
 
-1. NEO Tracker
-Selecting a Date Range: Use the date picker to select a start and end date to fetch Near-Earth Object data for that period.
-Filtering by Hazardous Status: You can filter NEOs that are marked as potentially hazardous by selecting the checkbox.
-Viewing Data: NEO data will be displayed as cards. You can also visualize asteroid size, hazardous status, and speed in charts.
-Detailed View: Click on individual NEOs to see more detailed information like size, closest approach date, and miss distance.
-2. Wildfire Tracker
-Viewing Global Events: Navigate to the Map page to view wildfire events on a global map.
-Event Markers: Hover on wildfire markers to see detailed information about the event, including the date, location, and category.
-Available Routes
-The following routes are available in the application:
 
-Home Page (/): Displays the Astronomy Picture of the Day and its description using NASA’s APOD API.
-Asteroid Tracker (/asteroidtracker): Allows users to filter and visualize NEO data, including charts for NEO size, hazardous status, and max diameter.
-Map Page (/map): Displays a map of global wildfire events using NASA’s EONET API.
+## 🧭 Using the Application
 
-## Future Improvements
-1) Pagination for Large Datasets: If the NEO dataset is large, implementing pagination or infinite scrolling could improve performance.
-2) User Authentication: Allow users to save their preferences or track specific NEOs by adding user authentication.
-3) New APIs and Visualizations: Integrate additional NASA APIs and create more visualizations.
+- 🌌 **Home Page**:  
+  - Displays NASA’s Astronomy Picture of the Day (APOD).  
+  - Integrates a GPT-powered chatbot for space-related queries.  
+  - Social media icons allow instant sharing of the APOD.
+
+- ☄️ **Asteroid Tracker**:  
+  - Select a date range (up to 7 days) to fetch Near-Earth Object (NEO) data.  
+  - Toggle a hazardous filter to view only potential threats.  
+  - Asteroids are displayed in swipeable cards with metadata (name, velocity, miss distance).  
+  - Includes interactive visualizations (Bar, Pie, Line, Scatter charts) on size, speed, diameter, and threat level.  
+  - Charts update dynamically based on filters applied.  
+
+- 🔥 **Wildfire Tracker**:  
+  - Navigate to the interactive map to view wildfire events from NASA’s EONET API.  
+  - Filter events by country, continent, month, and year.  
+  - Hover on map markers to reveal event title, coordinates, and date.
+
+- 🪐 **Mars Gallery**:  
+  - Scroll through high-definition Mars rover images from the Curiosity rover API.  
+  - Use the built-in contact form (EmailJS) to ask questions or submit feedback.
+
+---
+
+## 🗺️ Available Routes
+
+| Route              | Description                                             |
+|-------------------|---------------------------------------------------------|
+| `/`               | Home page with APOD and GPT chatbot                     |
+| `/asteroidtracker`| Near-Earth Object tracker with cards and visualizations |
+| `/map`            | Wildfire map with filtering capabilities                |
+| `/marsgallery`    | Mars photo gallery with contact form                    |
+
+---
+
+## 🔮 Future Improvements
+
+- 🔄 **Pagination or Infinite Scroll** for loading large asteroid datasets efficiently.  
+- 🔐 **User Authentication** to save preferences, query history, or favorite asteroids.  
+- 🌍 **More NASA APIs**: Integrate missions like Exoplanets, Meteor Showers, ISS tracking.  
+- 🎨 **Dark Mode** and improved accessibility for better UX.  
+- 📦 **PWA Support** for offline access and installable web experience.  
+- 📈 **Download Options**: Allow exporting chart data as images or CSV.
+
+---
+
+## 📁 Component Breakdown
+
+### 🖥️ Frontend Components
+
+1. **App.js**  
+   - **Purpose**: Main entry point for the React application.  
+   - **Responsibilities**: Handles routing and renders global components like Navbar and Footer.
+
+2. **Home.jsx**  
+   - **Purpose**: Displays the Astronomy Picture of the Day (APOD).  
+   - **Responsibilities**: Fetches image and explanation from NASA's APOD API; integrates chatbot and background image.
+
+3. **AsteroidTracker.jsx**  
+   - **Purpose**: Tracks Near-Earth Objects (NEOs).  
+   - **Responsibilities**: Handles fetching, filtering, and displaying asteroid data in both cards and charts.
+
+4. **DatePicker.jsx**  
+   - **Purpose**: Provides a date range selector.  
+   - **Responsibilities**: Limits range to 7 days and triggers API call on selection.
+
+5. **NeoFilters.jsx**  
+   - **Purpose**: Allows filtering NEOs by approach date and hazard status.  
+   - **Responsibilities**: Provides checkbox and date input interfaces.
+
+6. **NeoCard.jsx**  
+   - **Purpose**: Displays key info about individual NEOs.  
+   - **Responsibilities**: Shows name, size, velocity, miss distance, and hazard status.
+
+7. **NeoCardContainer.jsx**  
+   - **Purpose**: Wraps NEO cards in a scrollable container.  
+   - **Responsibilities**: Implements auto-scroll or manual swipe navigation.
+
+8. **NeoList.jsx**  
+   - **Purpose**: Renders a list of filtered NEO cards.  
+   - **Responsibilities**: Connects filter output to card layout.
+
+9. **NeoDetails.jsx**  
+   - **Purpose**: Modal displaying full details of a selected NEO.  
+   - **Responsibilities**: Provides user interaction and deep dive data.
+
+10. **NeoChart.jsx**  
+    - **Purpose**: Visualizes NEO data using Chart.js.  
+    - **Responsibilities**: Supports Pie, Bar, Line, and Scatter charts.
+
+11. **Map.jsx**  
+    - **Purpose**: Shows real-time wildfire events using Leaflet.  
+    - **Responsibilities**: Integrates NASA EONET API data with custom map markers and filters.
+
+12. **MarsGallery.jsx**  
+    - **Purpose**: Displays Mars rover images.  
+    - **Responsibilities**: Fetches from Mars Rover Photos API, auto-scrolls, includes contact form.
+
+13. **ContactForm.jsx**  
+    - **Purpose**: Submits user messages.  
+    - **Responsibilities**: Integrates with EmailJS to send emails.
+
+14. **Navbar.jsx**  
+    - **Purpose**: Provides navigation links.  
+    - **Responsibilities**: Links to all main app routes.
+
+15. **Footer.jsx**  
+    - **Purpose**: Displays static footer information.  
+    - **Responsibilities**: Contains credits, project info, or social media.
+
+---
+
+### 🧩 Backend Components
+
+1. **server.js**  
+   - **Purpose**: Main entry point for the Express.js server.  
+   - **Responsibilities**: Sets up middleware, routes, CORS, and runs backend on port.
+
+2. **routes/**  
+   - **apodRoutes.js** – Routes for APOD-related requests.  
+   - **neoRoutes.js** – Routes for NEO (Asteroid) data fetching.  
+   - **eonetRoutes.js** – Routes for wildfire events (EONET API).  
+   - **marsRoutes.js** – Routes for fetching Mars Rover Photos.  
+   - **chatbotRoutes.js** – Routes for sending user prompts to OpenAI GPT.
+
+3. **controllers/**  
+   - **apodController.js** – Handles logic for fetching Astronomy Picture of the Day.  
+   - **neoController.js** – Handles fetching, parsing, and structuring NEO data.  
+   - **eonetController.js** – Retrieves wildfire event data from EONET.  
+   - **marsController.js** – Retrieves Mars rover image data.  
+   - **chatWithGPT.js** – Sends prompts and retrieves responses from OpenAI API.
+
+4. **.env**  
+   - **Purpose**: Securely stores sensitive credentials.  
+   - **Variables**:
+     ```env
+     PORT = port_no
+     NASA_API_KEY=your-nasa-api-key
+     OPENAI_API_KEY=your-openai-api-key
+
+     ```
+
+---
+
+- `.env` – Securely stores NASA, OpenAI, and EmailJS keys  
+
+---
+
+📬 **For Questions or Feedback**, visit [`/marsgallery`](https://nasa-astronomy-application.vercel.app/marsgallery) and submit via the contact form.
+
+👨‍💻 **Developed by [Karthik Iyer](https://github.com/KarthikIyer97)**  
+🌌 **Powered by NASA, Leaflet, OpenAI, EmailJS, and the Universe.**
+
+
 
 ## Component Breakdown
 1. App.js
