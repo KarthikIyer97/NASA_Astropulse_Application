@@ -5,6 +5,7 @@ import neoRoutes from './routes/neoRoutes.js'
 import apodRoutes from './routes/apodRoutes.js'
 import eonetRoutes from './routes/eonetRoutes.js'
 import chatbotRoutes from './routes/chatbotRoutes.js'
+import marsRoutes from './routes/marsRoutes.js';
 import compression from 'compression';
 
 dotenv.config()
@@ -22,8 +23,10 @@ app.use('/api', neoRoutes);
 app.use('/api', apodRoutes);
 app.use('/api', eonetRoutes);
 app.use('/api', chatbotRoutes);
+app.use('/api', marsRoutes);
 
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`)
+    console.log("🔑 Loaded key:", process.env.OPENAI_API_KEY);
 })
 
